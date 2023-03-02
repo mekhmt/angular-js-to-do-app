@@ -1,0 +1,61 @@
+!DOCTYPE html>
+<html>
+<head>
+    
+    <title>Page Title</title>
+    <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js'></script>
+</head>
+<body ng-app="myApplication" ng-controller="myController">
+    <!-- <body data-ng-app="myApplication"> camel case
+        model=data
+         view 
+         controller
+    </body> -->
+<h1>To Do List</h1>
+ <input type="text" placeholder="task title here" ng-model="task_name">
+ <button ng-click="save()">Save</button>
+ <!-- {{task_name}} -->
+ <table border="1">
+    <tr>
+        <th>#</th><!-- {{name}} -->
+        <th>Task Title</th>
+        <th>Status</th>
+        <th>Action</th>
+
+    </tr>
+    <tr ng-repeat="t in tasks">
+        <th>{{$index+1}}</th>
+        <th>{{t.task_title}}</th>
+        <th>{{t.status?"finished":"In  progress"}}</th>
+        <th>
+            <button ng-click="remove($index)">Delete</button>
+            <button ng-click="status($index)">finished</button>
+        </th>
+    </tr>
+ </table>  
+    <script>
+        var app = angular.module("myApplication",[]);
+        app.controller("myController",($scope)=>{
+            //$scope.name="hai" ["apple","orange","banana"]to line number 19
+            $scope.tasks=[
+                {task_title:"task 1",status:false},
+                {task_title:"task 2",status:false},
+                {task_title:"task 3",status:false}
+            ]
+            $scope.save=()=>{
+            $scope.tasks.push({task_title:$scope.task_name,status:false})
+             }
+             $scope.status = (index)=>{
+                //alert(index);
+
+                $scope.tasks[index].status=true;
+             }
+             $scope.remove = (i)=>{
+                $scope.tasks.splice(i,1)
+             }
+        });
+
+        
+    </script>
+</body>
+</html>
